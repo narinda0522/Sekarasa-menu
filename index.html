@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sekarasa - Restaurant Menu</title>
-  <link rel="icon" href="Sekarasa/sekarasa.png" type="image/png">
+  <link rel="icon" href="image/Sekarasa/sekarasa.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -22,386 +23,36 @@
         }
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeBtn = document.querySelector(".modal-close");
+
+    // Klik gambar untuk buka modal
+    document.querySelectorAll(".product-image").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.classList.add("show");
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+      });
+    });
+
+    // Klik tombol close
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("show");
+      modalImg.src = "";
+    });
+
+    // Klik area luar gambar untuk menutup
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("show");
+        modalImg.src = "";
+      }
+    });
+  });
   </script>
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      border-radius: 20px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: #2563eb #f1f5f9;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Header Animation */
-    .header-fade {
-      animation: fadeInDown 0.8s ease-out;
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Background Pattern */
-    .bg-pattern {
-      background-image: 
-        radial-gradient(circle at 2px 2px, rgba(37, 99, 235, 0.05) 1px, transparent 0);
-      background-size: 40px 40px;
-    }
-
-    /* Tab System */
-    .tab-active {
-      background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
-      color: white !important;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .tab {
-      color: #6b7280;
-      font-weight: 500;
-      text-decoration: none;
-    }
-
-    .tab:hover {
-      background: #f3f4f6;
-      color: #2563eb;
-    }
-
-    @media (max-width: 768px) {
-      .inline-flex {
-        overflow-x: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        scroll-snap-type: x mandatory;
-        width: 100%;
-        justify-content: flex-start;
-        padding-right: 2rem;
-      }
-      
-      .inline-flex::-webkit-scrollbar {
-        display: none;
-      }
-      
-      .tab {
-        scroll-snap-align: start;
-        flex-shrink: 0;
-      }
-    }
-
-    /* Section Animations */
-    .menu-section {
-      margin-bottom: 4rem;
-      scroll-margin-top: 140px;
-      animation: fadeInUp 0.6s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Product Item Enhancements */
-    .product-item {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 16px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      background: white;
-      border: 1px solid #f1f5f9;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .product-item:hover {
-      background: #fefefe;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-      border-color: #e2e8f0;
-    }
-
-    .product-item:hover::before {
-      transform: scaleX(1);
-    }
-
-    .product-image {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 12px;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .product-item:hover .product-image {
-      transform: scale(1.05);
-    }
-
-    /* Section Headers */
-    .section-header {
-      background: linear-gradient(135deg, #1f2937, #374151);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-header::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      border-radius: 2px;
-    }
-
-    /* Price styling */
-    .price {
-      background: linear-gradient(135deg, #10b981, #059669);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .menu-section {
-        scroll-margin-top: 120px;
-      }
-      
-      .tab {
-        padding: 0.625rem 1.25rem;
-        font-size: 0.8rem;
-      }
-    }
-
-    /* Loading animation */
-    .fade-in {
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Add-on section styling */
-    .addon-section {
-      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(8px);
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    .modal.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      animation: zoomIn 0.3s ease-out;
-    }
-
-    .modal-image {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .modal-close:hover {
-      opacity: 0.7;
-    }
-
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* Contact info styles */
-    .contact-info {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .contact-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: inherit;
-      transition: transform 0.3s ease;
-      z-index: -1;
-    }
-
-    .contact-btn:hover {
-      transform: translateY(-3px) scale(1.1);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .contact-btn:hover::before {
-      transform: scale(1.1);
-    }
-
-    .whatsapp-btn {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-    }
-
-    .instagram-btn {
-      background: linear-gradient(135deg, #E4405F, #833AB4, #F77737);
-    }
-
-    .contact-tooltip {
-      position: absolute;
-      right: 70px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .contact-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 100%;
-      margin-top: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
-    }
-
-    .contact-btn:hover .contact-tooltip {
-      opacity: 1;
-    }
-
-    /* Mobile adjustments for contact */
-    @media (max-width: 640px) {
-      .contact-info {
-        right: 15px;
-        bottom: 15px;
-        gap: 10px;
-      }
-
-      .contact-btn {
-        width: 50px;
-        height: 50px;
-      }
-
-      .contact-tooltip {
-        display: none;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50 bg-pattern text-gray-900 font-sans">
@@ -412,7 +63,7 @@
         <div class="flex items-center space-x-4">
           
           <div class="w-14 h-16 flex-shrink-0">
-            <img src="Sekarasa/logo sekarasa.png" alt="Logo of Sekarasa" class="w-full h-full object-contain">
+            <img src="image/Sekarasa/logo sekarasa.png" alt="Logo of Sekarasa" class="w-full h-full object-contain">
           </div>
           
           <div class="flex flex-col">
@@ -448,9 +99,9 @@
         <div class="inline-flex bg-gray-100 rounded-full p-1 shadow-inner">
           <a href="#main-course" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Main Course</a>
           <a href="#snack-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Snacks</a>
-          <a href="#signature" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Signature</a>
           <a href="#coffee-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Coffee</a>
           <a href="#tea-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Tea</a>
+          <a href="#tradis-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Tradi's</a>
           <a href="#soda-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Soda</a>
           <a href="#milk-series" class="tab px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap">Milk</a>
         </div>
@@ -468,7 +119,7 @@
 
   <!-- Contact Info -->
   <div class="contact-info">
-    <a href="http://wa.me//6281217700458" target="_blank" class="contact-btn whatsapp-btn">
+    <a href="http://wa.me//6285129607942" target="_blank" class="contact-btn whatsapp-btn">
       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
       </svg>
@@ -492,25 +143,31 @@
       
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Main Course (1).jpg" alt="Nasi Ayam Geprek" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Nasi+Ayam+Geprek'"/>
+          <img src="image/Sekarasa/ayam geprek.jpg" alt="Nasi Ayam Geprek" class="product-image" onerror="this.src='https://placehold.co/80x80?text=🍛'"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Nasi Ayam Geprek</h3>
             <p class="text-sm text-gray-600 mb-2">Smashed fried chicken with spicy sambal</p>
             <p class="price text-lg">Rp 20.000</p>
           </div>
         </div>
-       </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Steamboat" alt="Steamboat" 
-          class="product-image" onerror="this.src='https://placehold.co/80x80?text=Steamboat"/>
+          <img src="image/Sekarasa/ayam bumbu hitam.jpg" alt="Ayam Bumbu Hitam" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Ayam+Bumbu+Hitam'"/>
           <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Steamboat</h3>
-            <p class="text-sm text-gray-600">A warm hot pot steamboat</p>
-            <p class="price text-lg">Rp 35.000</p>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Ayam Bumbu Hitam</h3>
+            <p class="text-sm text-gray-600"></p>
+            <p class="price text-lg">Rp 25.000</p>
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Snack Series (3).jpg" 
+          <img src="image/Sekarasa/bebek bumbu hitam.jpg" alt="Korean Spicy Chicken" class="product-image" onerror="this.src='https://placehold.co/80x80?text=🌶️'"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Bebek Bumbu Hitam</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="price text-lg">Rp 30.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/burger.jpg" 
                alt="Cheese Burger" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Cheese+Burger+&+French+Fries'"/>
@@ -521,7 +178,7 @@
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Ayam+Sambal+Matah" alt="Ayam Sambal Matah" class="product-image"/>
+          <img src="image/Sekarasa/ayam sambal matah.jpg" alt="Ayam Sambal Matah" class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Ayam Sambal Matah</h3>
             <p class="text-sm text-gray-600 mb-2">Grilled chicken with sambal matah</p>
@@ -529,7 +186,7 @@
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Ayam+Madu" alt="Ayam Madu" class="product-image"/>
+          <img src="image/Sekarasa/ayam madu.jpg" alt="Ayam Madu" class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Ayam Madu</h3>
             <p class="text-sm text-gray-600 mb-2">Sweet honey glazed chicken</p>
@@ -537,7 +194,15 @@
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Beef+Teriyaki" alt="Beef Teriyaki" class="product-image"/>
+          <img src="image/Sekarasa/ayam katsu.jpg" alt="Ayam Bakar Bumbu Rujak" class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Chicken Katsu</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="price text-lg">Rp 20.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/beef teriyaki.jpg" alt="Beef Teriyaki" class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Beef Teriyaki</h3>
             <p class="text-sm text-gray-600 mb-2">Tender beef with teriyaki sauce</p>
@@ -545,7 +210,7 @@
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Spagheti+Carbonara" alt="Spaghetti Carbonara" class="product-image"/>
+          <img src="image/Sekarasa/carbonara.jpg" alt="Spaghetti Carbonara" class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Spaghetti Carbonara</h3>
             <p class="text-sm text-gray-600 mb-2">Creamy Italian pasta with bacon</p>
@@ -553,82 +218,81 @@
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Nasi+Goreng+Sekarasa" alt="Nasi Goreng Sekarasa" class="product-image"/>
+          <img src="image/Sekarasa/nasi goreng sr.jpg" alt="Nasi Goreng SR" class="product-image"/>
           <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Nasi Goreng Sekarasa</h3>
-            <p class="text-sm text-gray-600 mb-2">Special Fried rice sekarasa</p>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Nasi Goreng SR</h3>
+            <p class="text-sm text-gray-600 mb-2">Fried rice with and egg</p>
             <p class="price text-lg">Rp 20.000</p>
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Nasi+Goreng+Hot+Sekarasa" alt="Nasi Goreng Hot Sekarasa" class="product-image"/>
+          <img src="image/Sekarasa/nasi goreng hot sr.jpg" alt="Nasi Goreng hot sr" class="product-image"/>
           <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Nasi Goreng Hot Sekarasa</h3>
-            <p class="text-sm text-gray-600 mb-2">Special spicy Fried rice sekarasa</p>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Nasi Goreng Hot SR</h3>
+            <p class="text-sm text-gray-600 mb-2">Spicy Fried rice with and egg</p>
             <p class="price text-lg">Rp 20.000</p>
           </div>
         </div>
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Mie+Bangladesh+Sekarasa" alt="Mie Bangladesh Sekarasa" class="product-image"/>
+          <img src="image/Sekarasa/Steamboat.jpg" alt="Nasi Goreng Mentega" class="product-image"/>
           <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Mie Goreng Sekarasa</h3>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Steamboat</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="price text-lg">Rp 35.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/mie bangladesh.jpg" alt="Mie Goreng Sekarasa" class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Mie Bangladesh Sekarasa</h3>
             <p class="text-sm text-gray-600 mb-2">Nyemek style spicy fried noodles</p>
             <p class="price text-lg">Rp 15.000</p>
           </div>
         </div>
+      </div>
 
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Chicken+Katsu" alt="Chicken Katsu" class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Chicken Katsu</h3>
-            <p class="text-sm text-gray-600 mb-2">A juicy chicken crispy fillet, with rice</p>
-            <p class="price text-lg">Rp 20.000</p>
-          </div>
-        </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Ayam+Bumbu+Hitam+Madura" alt="Ayam Bumbu Hitam Madura" class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Ayam Bumbu Hitam Madura</h3>
-            <p class="text-sm text-gray-600 mb-2">Tender fried chicken with a bold and madurese black spice paste</p>
-            <p class="price text-lg">Rp 15.000</p>
-          </div>
-        </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Bebek+Bumbu+Hitam+Madura" alt="Bebek Bumbu Hitam Madura" class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Bebek Bumbu Hitam Madura</h3>
-            <p class="text-sm text-gray-600 mb-2">Tender fried duck with a bold and madurese black spice paste</p>
-            <p class="price text-lg">Rp 15.000</p>
-          </div>
-        </div>
 
        <!-- Add-on -->
       <div class="addon-section mt-8">
         <h3 class="font-bold text-lg mb-4 text-gray-700 text-center">Add-on</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="product-item flex items-center space-x-4">
-            <img src="Sekarasa/Nasi Putih.jpeg" alt="Nasi Putih" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Nasi'"/>
+            <img src="image/Sekarasa/Nasi Putih.jpeg" alt="Nasi Putih" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Nasi'"/>
             <div class="flex-grow min-w-0">
               <h3 class="text-base font-semibold text-gray-800 mb-1">Nasi Putih</h3>
               <p class="price text-base">Rp 5.000</p>
             </div>
           </div>
           <div class="product-item flex items-center space-x-4">
-            <img src="Sekarasa/Telur Ceplok.jpg" alt="Telur Ceplok" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Telur+Ceplok'"/>
+            <img src="image/Sekarasa/Telur Ceplok.jpg" alt="Telur Ceplok" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Telur+Dadar'"/>
             <div class="flex-grow min-w-0">
               <h3 class="text-base font-semibold text-gray-800 mb-1">Telur Ceplok</h3>
               <p class="price text-base">Rp 5.000</p>
             </div>
           </div>
           <div class="product-item flex items-center space-x-4">
-            <img src="Sekarasa/kerupuk finna.webp" alt="Kerupuk Udang" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Kerupuk+Ikan'"/>
+            <img src="image/Sekarasa/telur dadar.jpg" alt="Telur Dadar" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Telur+Dadar'"/>
+            <div class="flex-grow min-w-0">
+              <h3 class="text-base font-semibold text-gray-800 mb-1">Telur Dadar</h3>
+              <p class="price text-base">Rp 5.000</p>
+            </div>
+          </div>
+          <div class="product-item flex items-center space-x-4">
+            <img src="image/Sekarasa/kerupuk finna.webp" alt="Kerupuk Udang" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Kerupuk+Ikan'"/>
             <div class="flex-grow min-w-0">
               <h3 class="text-base font-semibold text-gray-800 mb-1">Kerupuk Udang</h3>
               <p class="price text-base">Rp 2.000</p>
             </div>
           </div>
+          <div class="product-item flex items-center space-x-4">
+            <img src="image/Sekarasa/ayam sr.jpg" alt="Ayam SR" class="product-image" onerror="this.src='https://placehold.co/80x80?text=Kerupuk+Ikan'"/>
+            <div class="flex-grow min-w-0">
+              <h3 class="text-base font-semibold text-gray-800 mb-1">Ayam SR (Sayap)</h3>
+              <p class="price text-base">Rp 7.000</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
         <!-- Snack Series Section -->
@@ -637,7 +301,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Snack Series (1).jpg" 
+          <img src="image/Sekarasa/pisang selimut.jpg" 
                alt="Pisang Selimut" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Pisang+Selimut'"/>
@@ -649,7 +313,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Snack Series (4).jpg" 
+          <img src="image/Sekarasa/pisang bakar.jpg" 
                alt="Pisang Bakar" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Pisang+Bakar+Coklat+Keju'"/>
@@ -661,7 +325,7 @@
         </div>
         
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Snack series rotbar.jpg" 
+          <img src="image/Sekarasa/Snack series rotbar.jpg" 
                alt="Roti Bakar" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Roti+Bakar'"/>
@@ -673,7 +337,7 @@
         </div>
         
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Snack Series (5).jpg" 
+          <img src="image/Sekarasa/dimsum mentai.jpg" 
                alt="Dimsum Mentai" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Dimsum+Mentai'"/>
@@ -685,7 +349,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="" 
+          <img src="image/Sekarasa/dimsum.jpg" 
                alt="Dimsum" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Dimsum'"/>
@@ -697,7 +361,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="" 
+          <img src="image/Sekarasa/pisang goreng.jpg" 
                alt="Pisang Goreng" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Pisang+Goreng'"/>
@@ -709,7 +373,19 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=SR+Platter" 
+          <img src="image/Sekarasa/singkong thai.jpg" 
+               alt="Singkong ala Thai" 
+               class="product-image"
+               onerror="this.src='https://placehold.co/80x80?text=Singkong+ala+Thai'"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Singkong ala Thai</h3>
+            <p class="text-sm text-gray-600 mb-2">Banana with ice cream, chocolate, strawberry, and whipped cream</p>
+            <p class="price text-lg">Rp 18.000</p>
+          </div>
+        </div>
+
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/platter.jpg" 
                alt="SR Platter" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -720,7 +396,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=French+Fries" 
+          <img src="image/Sekarasa/kentang goreng.jpg" 
                alt="French Fries" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -731,7 +407,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Chicken+Bucket" 
+          <img src="image/Sekarasa/chicken bucket.png" 
                alt="Chicken Bucket" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -742,8 +418,8 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Cireng+Salju" 
-               alt="Churros" 
+          <img src="image/Sekarasa/cireng salju.jpg" 
+               alt="Cireng" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Cireng Salju</h3>
@@ -753,7 +429,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Pempek+Palembang" 
+          <img src="image/Sekarasa/pempek.jpg" 
                alt="Pempek Palembang" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -762,65 +438,7 @@
             <p class="price text-lg">Rp 22.000</p>
           </div>
         </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Singkong+ala+Thai" 
-               alt="Singkong ala Thai" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Singkong ala Thai</h3>
-            <p class="text-sm text-gray-600 mb-2">Melt sweet cassava, with coconut creamy</p>
-            <p class="price text-lg">Rp 18.000</p>
-          </div>
-        </div>
-    </section>
-
-
-   
-
-    
-
-    <!-- Tradis's Section -->
-    <section class="menu-section" id="signature">
-      <h2 class="section-header font-bold mb-6 text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide">Tradis's Series</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        
-         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Milk series (2).jpg" 
-               alt="Es Roti Jadoel" 
-               class="product-image"
-               onerror="this.src='https://placehold.co/80x80?text=Es+Coklat+Roti+Jadoel'"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Coklat Roti Jadoel</h3>
-            <p class="text-sm text-gray-600">Chocolate milk with soft bread</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 25.000</p>
-          </div>
-        </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Es Manado.jpg" 
-               alt="Es Manado" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Manado</h3>
-            <p class="text-sm text-gray-600">Manado ice with mix fruit</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 18.000</p>
-          </div>
-        </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Es+Jeruk+Peras" 
-               alt="Es Jeruk Peras" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Jeruk Peras</h3>
-            <p class="text-sm text-gray-600">Freshly squeezed orange</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 10.000</p>
-          </div>
-        </div>
+      </div>
     </section>
 
     <!-- Coffee Series Section -->
@@ -829,7 +447,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/kopi hitam.jpg" 
+          <img src="image/Sekarasa/kopi hitam.jpg" 
                alt="Kopi Hitam" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Kopi+Hitam'"/>
@@ -842,7 +460,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/americano.webp" 
+          <img src="image/Sekarasa/americano.jpg" 
                alt="Americano" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Americano'"/>
@@ -855,7 +473,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="Sekarasa/Kopi Susu.jpg" 
+          <img src="image/Sekarasa/Kopi Susu.jpg" 
                alt="Kopi Susu" 
                class="product-image"
                onerror="this.src='https://placehold.co/80x80?text=Kopi+Susu'"/>
@@ -868,19 +486,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Espresso" 
-               alt="Espresso" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Espresso</h3>
-            <p class="text-sm text-gray-600">Strong concentrated coffee</p>
-            <p class="text-sm text-gray-600 mb-3">• Hot</p>
-            <p class="price text-lg">Rp 10.000</p>
-          </div>
-        </div>
-
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=SR+Kiss+Latte" 
+          <img src="image/Sekarasa/kiss latte.jpg" 
                alt="SR Kiss Latte" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -892,7 +498,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Cappuccino" 
+          <img src="image/Sekarasa/cappucino.jpg" 
                alt="Cappuccino" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -904,7 +510,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Butterscotch" 
+          <img src="image/Sekarasa/butterscotch.jpg" 
                alt="Butterscotch" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -916,7 +522,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Salted+Caramel+Latte" 
+          <img src="image/Sekarasa/salted caramel (2).jpg" 
                alt="Salted Caramel Latte" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -926,68 +532,59 @@
             <p class="price text-lg">Rp 25.000</p>
           </div>
         </div>
-
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=SR+Brown+Sugar+Latte" 
-               alt="Brown Sugar Latte" 
+          <img src="image/Sekarasa/brown sugar.jpg" 
+               alt="SR Brown Sugar Latte" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">SR Brown Sugar Latte</h3>
-            <p class="text-sm text-gray-600 mb-2">Brown sugar latte with milk</p>
+            <p class="text-sm text-gray-600"></p>
             <p class="text-sm text-gray-600 mb-3">• Ice</p>
             <p class="price text-lg">Rp 22.000</p>
           </div>
         </div>
-      </div>
-
-      <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Caramel+Machiato" 
-               alt="Caramel Machiato" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Caramel Machiato</h3>
-            <p class="text-sm text-gray-600 mb-2">Layered espresso with vanilla milk and caramel</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 22.000</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Mochaccino" 
-               alt="Mochaccino" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Mochaccino</h3>
-            <p class="text-sm text-gray-600 mb-2">The classic coffee-chocolate bland</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 22.000</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Summerpresso+(Strawberry/Peach)" 
-               alt="Summerpresso (Strawberry/Peach)" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Summerpresso (Strawberry/Peach)</h3>
-            <p class="text-sm text-gray-600 mb-2">Espresso with a fruity twis. Choose Strawberry/Peach</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 15.000</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Rose+Centifolia" 
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/rose.jpg" 
                alt="Rose Centifolia" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Rose Centifolia</h3>
-            <p class="text-sm text-gray-600 mb-2">Espresso latte with a fragrant floral twist</p>
+            <p class="text-sm text-gray-600"></p>
+            <p class="text-sm text-gray-600 mb-3">• Ice/Hot</p>
+            <p class="price text-lg">Rp 22.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/mochaccino.jpg" 
+               alt="Mochaccino" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Mochaccino</h3>
+            <p class="text-sm text-gray-600"></p>
+            <p class="text-sm text-gray-600 mb-3">• Ice/Hot</p>
+            <p class="price text-lg">Rp 22.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/caramel machiato.jpg" 
+               alt="Caramel Machiato" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Caramel Machiato</h3>
+            <p class="text-sm text-gray-600"></p>
             <p class="text-sm text-gray-600 mb-3">• Ice</p>
             <p class="price text-lg">Rp 22.000</p>
+          </div>
+        </div>
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/summer.jpg" 
+               alt="Summerpresso" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Summerpresso</h3>
+            <p class="text-sm text-gray-600"></p>
+            <p class="text-sm text-gray-600 mb-3">(Strawberry/Peach) <br>• Ice</p>
+            <p class="price text-lg">Rp 15.000</p>
           </div>
         </div>
       </div>
@@ -997,7 +594,7 @@
         <h3 class="font-bold text-lg mb-4 text-gray-700">Coffee Add-on</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="product-item flex items-center space-x-4">
-            <img src="Sekarasa/extra shoot.jpg" 
+            <img src="image/Sekarasa/espresso.jpg" 
                  alt="Extra Shot" 
                  class="product-image"
                  onerror="this.src='https://placehold.co/80x80?text=Extra+Shot+Espresso'"/>
@@ -1008,7 +605,7 @@
           </div>
 
           <div class="product-item flex items-center space-x-4">
-            <img src="Sekarasa/Syrup.webp" 
+            <img src="image/Sekarasa/Syrup.webp" 
                  alt="Syrup" 
                  class="product-image"
                  onerror="this.src='https://placehold.co/80x80?text=Substitute+to+Oat+Milk'"/>
@@ -1027,7 +624,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Lychee+Tea" 
+          <img src="image/Sekarasa/leechy.jpg" 
                alt="Lychee Tea" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1039,7 +636,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Ice+Tea" 
+          <img src="image/Sekarasa/es teh.jpg" 
                alt="Tea" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1051,7 +648,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Lemon+Tea" 
+          <img src="image/Sekarasa/lemon tea.jpg" 
                alt="Lemon Tea" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1063,7 +660,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Strawberry+Tea" 
+          <img src="image/Sekarasa/strawberry tea.jpg" 
                alt="Strawberry Tea" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1075,7 +672,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Mango+Peach+Tea" 
+          <img src="image/Sekarasa/mango peach tea.jpg" 
                alt="Mango Peach Tea" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1088,37 +685,80 @@
       </div>
     </section>
 
+        <!-- Tradi's Series Section -->
+    <section class="menu-section" id="tradis-series">
+      <h2 class="section-header font-bold mb-6 text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide">Tradi's Series</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/es manadoo.jpg" 
+               alt="Es Manado" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Manado</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="text-sm text-gray-600 mb-3">• Ice</p>
+            <p class="price text-lg">Rp 18.000</p>
+          </div>
+        </div>
+
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/es jeruk.jpg" 
+               alt="Es Jeruk Peras" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Jeruk Peras</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="text-sm text-gray-600 mb-3">• Ice</p>
+            <p class="price text-lg">Rp 10.000</p>
+          </div>
+        </div>
+
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/es coklat jadoel.jpg" 
+               alt="Es Coklat Jadoel" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Es Coklat Jadoel</h3>
+            <p class="text-sm text-gray-600 mb-2"></p>
+            <p class="text-sm text-gray-600 mb-3">• Ice</p>
+            <p class="price text-lg">Rp 25.000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Soda Series Section -->
     <section class="menu-section" id="soda-series">
       <h2 class="section-header font-bold mb-6 text-xl sm:text-2xl lg:text-3xl uppercase tracking-wide">Soda Series</h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Blue+Ocean" 
-               alt="Blue Ocean" 
+          <img src="image/Sekarasa/purple ocean.jpg" 
+               alt="Purple Ocean" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Blue Ocean</h3>
-            <p class="text-sm text-gray-600 mb-2">Refreshing blue-colored soda</p>
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Purple Ocean</h3>
+            <p class="text-sm text-gray-600 mb-2">Refreshing purple soda</p>
             <p class="text-sm text-gray-600 mb-3">• Ice</p>
             <p class="price text-lg">Rp 25.000</p>
           </div>
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Strawberry+Mint" 
+          <img src="image/Sekarasa/strawberry mint.jpg" 
                alt="Strawberry Mint" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
             <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Strawberry Mint</h3>
-            <p class="text-sm text-gray-600 mb-2">Fresh strawberry soda</p>
+            <p class="text-sm text-gray-600 mb-2">Fresh lime with mint</p>
             <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 25.000</p>
+            <p class="price text-lg">Rp 20.000</p>
           </div>
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Mango+Peach+Mojito" 
+          <img src="image/Sekarasa/mango peach mojito.jpg" 
                alt="Mango Peach Mojito" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1137,7 +777,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Regal+Rum+Latte" 
+          <img src="image/Sekarasa/regal rum.jpg" 
                alt="Regal Rum Latte" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1149,7 +789,7 @@
         </div>
 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Matcha+Latte" 
+          <img src="image/Sekarasa/matcha latte.jpg" 
                alt="Matcha Latte" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1162,7 +802,7 @@
         
         
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Red+Velvet" 
+          <img src="image/Sekarasa/redvelvet.jpg" 
                alt="Red Velvet" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1174,7 +814,7 @@
         </div>
         
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Choco+Lava" 
+          <img src="image/Sekarasa/coklat.jpg" 
                alt="Choco Lava" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1186,7 +826,19 @@
         </div>
                 
         <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Taro+Delight" 
+          <img src="image/Sekarasa/sweet creamy berry.jpg" 
+               alt="Sweet Creamy Berry" 
+               class="product-image"/>
+          <div class="flex-grow min-w-0">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Sweet Creamy Berry</h3>
+            <p class="text-sm text-gray-600 mb-2">Sweet creamy berry with milk</p>
+            <p class="text-sm text-gray-600 mb-3">• Ice</p>
+            <p class="price text-lg">Rp 20.000</p>
+          </div>
+        </div>
+                
+        <div class="product-item flex items-center space-x-4">
+          <img src="image/Sekarasa/taro.jpg" 
                alt="Taro Delight" 
                class="product-image"/>
           <div class="flex-grow min-w-0">
@@ -1196,19 +848,6 @@
             <p class="price text-lg">Rp 18.000</p>
           </div>
         </div>
-                
-        <div class="product-item flex items-center space-x-4">
-          <img src="https://placehold.co/80x80?text=Sweet+Creamy+Strawberry" 
-               alt="Sweet Creamy Strawberry" 
-               class="product-image"/>
-          <div class="flex-grow min-w-0">
-            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-1">Sweet Creamy Strawberry</h3>
-            <p class="text-sm text-gray-600 mb-2">Strawberry creamy delight with milk</p>
-            <p class="text-sm text-gray-600 mb-3">• Ice</p>
-            <p class="price text-lg">Rp 22.000</p>
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
