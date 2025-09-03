@@ -5,7 +5,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: linear-gradient(135deg, #13c61f, #f6e33b);
       border-radius: 20px;
     }
 
@@ -15,7 +15,7 @@
 
     * {
       scrollbar-width: thin;
-      scrollbar-color: #2563eb #f1f5f9;
+      scrollbar-color: #ebd425 #f1f5f9;
     }
 
     html {
@@ -47,10 +47,10 @@
 
     /* Tab System */
     .tab-active {
-      background: linear-gradient(135deg, #2563eb, #3b82f6) !important;
+      background: linear-gradient(135deg, #df8e0a, #cf1818) !important;
       color: white !important;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 4px 12px rgba(183, 109, 6, 0.3);
       transform: translateY(-1px);
     }
 
@@ -62,7 +62,7 @@
 
     .tab:hover {
       background: #f3f4f6;
-      color: #2563eb;
+      color: #eb8b25;
     }
 
     @media (max-width: 768px) {
@@ -123,7 +123,7 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: linear-gradient(135deg, #df8e0a, #cf1818);
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
@@ -170,7 +170,7 @@
       left: 0;
       width: 60px;
       height: 3px;
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      background: linear-gradient(135deg, #df8e0a, #cf1818);
       border-radius: 2px;
     }
 
@@ -246,7 +246,7 @@
         height: auto;
         border-radius: 12px;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        object-fit: contain; /* supaya tidak ketarik */
+        object-fit: contain; 
         }
 
 
@@ -255,7 +255,7 @@
   top: 10px;
   right: 10px;
   color: white;
-  font-size: 22px;          /* agak kecil supaya pas */
+  font-size: 22px;         
   font-weight: bold;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -336,7 +336,7 @@
     }
 
     .instagram-btn {
-      background: linear-gradient(135deg, #E4405F, #833AB4, #F77737);
+      background: linear-gradient(135deg, #E4405F, #b43a5f, #F77737);
     }
 
     .contact-tooltip {
